@@ -23,11 +23,12 @@ enum Type {
 fn main() {
     let matches = clap_app!(myapp =>
         (about: "Import points from OSM")
-        (@arg DB: -d --db +takes_value "Sets a database URL")
-        (@arg INPUT: +required "Sets the input file to use")
+        (@arg db: -d --("database-url") +takes_value +required env("DATABASE_URL") "Sets a database URL")
+        (@arg input: +required "Sets the input file to use")
     ).get_matches();
 
-    let conn = Connection::connect("postgres://osm:osm@localhost:5432/osm", TlsMode::None).unwrap();
+    let database_url = matches.value_of("db").unwrap();
+    let conn = Connection::connect(database_url, TlsMode::None).unwrap();
 
     let add_point = conn.prepare(
         "INSERT INTO points (id, location, type, subtype, name, email, phone, website, opening_hours, operator) \
@@ -38,7 +39,7 @@ fn main() {
         "INSERT INTO tags (point_id, key, value) VALUES ($1, $2, $3)"
     ).unwrap();
 
-    let file_path = matches.value_of("INPUT").unwrap(); 
+    let file_path = matches.value_of("input").unwrap(); 
     let file = File::open(file_path).unwrap();
 
     let mut pbf = OsmPbfReader::new(&file);
