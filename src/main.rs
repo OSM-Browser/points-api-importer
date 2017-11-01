@@ -20,6 +20,8 @@ enum Type {
     Shop,
 }
 
+struct Types(Type, String);
+
 fn main() {
     let matches = clap_app!(myapp =>
         (about: "Import points from OSM")
@@ -49,19 +51,22 @@ fn main() {
             continue;
         }
 
-        if !obj.tags().contains_key("amenity") && !obj.tags().contains_key("shop") {
+        let types_option = get_types(&obj);
+
+        if types_option.is_none() {
             continue;
         }
 
         let id = get_object_id(&obj);
         let tags = obj.tags();
+        let types = types_option.unwrap();
         let location = Point {
             x: obj.node().unwrap().lat(),
             y: obj.node().unwrap().lon(),
         };
 
         add_point.execute(&[
-            &id, &location.as_ewkb(), &Type::Amenity, &tags.get("amenity"), &tags.get("name"), &tags.get("email"),
+            &id, &location.as_ewkb(), &types.0, &types.1, &tags.get("name"), &tags.get("email"),
             &tags.get("phone"), &tags.get("website"), &tags.get("opening_hours"), &tags.get("operator")
         ]).unwrap();
 
@@ -85,4 +90,20 @@ fn get_object_id(obj: &OsmObj) -> i64 {
         OsmId::Way(id) => id.0,
         OsmId::Relation(id) => id.0,
     }
+}
+
+fn get_types(obj: &OsmObj) -> Option<Types> {
+    let tags = obj.tags();
+
+    if tags.contains_key("amenity") {
+        let types = Types(Type::Amenity, tags.get("amenity").unwrap().clone());
+        return Some(types);
+    }
+
+    if tags.contains_key("shop") {
+        let types = Types(Type::Shop, tags.get("shop").unwrap().clone());
+        return Some(types);
+    }
+
+    None
 }
