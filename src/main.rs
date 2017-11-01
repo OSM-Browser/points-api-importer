@@ -34,11 +34,16 @@ fn main() {
 
     let add_point = conn.prepare(
         "INSERT INTO points (id, location, type, subtype, name, email, phone, website, opening_hours, operator) \
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)"
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) \
+        ON CONFLICT (id) DO \
+        UPDATE SET (location, type, subtype, name, email, phone, website, opening_hours, operator) = \
+        (excluded.location, excluded.type, excluded.subtype, excluded.name, excluded.email, excluded.phone, \
+        excluded.website, excluded.opening_hours, excluded.operator)"
     ).unwrap();
 
     let add_tag = conn.prepare(
-        "INSERT INTO tags (point_id, key, value) VALUES ($1, $2, $3)"
+        "INSERT INTO tags (point_id, key, value) VALUES ($1, $2, $3) \
+        ON CONFLICT (point_id, key) DO UPDATE SET value = excluded.value"
     ).unwrap();
 
     let file_path = matches.value_of("input").unwrap(); 
