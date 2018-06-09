@@ -1,14 +1,3 @@
-[root]
-name = "points-api-importer"
-version = "0.1.0"
-dependencies = [
- "clap 2.27.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "osmpbfreader 0.11.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "postgis 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "postgres 0.15.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "postgres-derive 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
 [[package]]
 name = "ansi_term"
 version = "0.9.0"
@@ -304,8 +293,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "points-api-importer"
+version = "0.1.0"
+dependencies = [
+ "clap 2.27.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "osmpbfreader 0.11.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "postgis 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "postgres 0.15.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "postgres-derive 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "postgis"
-version = "0.5.0"
+version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "byteorder 0.5.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -579,7 +579,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum par-map 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)" = "bd5bddaec64b4ea0a65d1d93b9bb7e375fc91769a60bcccb672dd6fd8294ceb3"
 "checksum phf 0.7.21 (registry+https://github.com/rust-lang/crates.io-index)" = "cb325642290f28ee14d8c6201159949a872f220c62af6e110a56ea914fbe42fc"
 "checksum phf_shared 0.7.21 (registry+https://github.com/rust-lang/crates.io-index)" = "07e24b0ca9643bdecd0632f2b3da6b1b89bbb0030e0b992afc1113b23a7bc2f2"
-"checksum postgis 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)" = "2fb989cfd17ac6fc108f6d858694a7883f7b628ebabb196292bce419f4574b43"
+"checksum postgis 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)" = "77bf5890c570725e057f44324f3f74747aad518e61f9bead515e22eedd0c4fd2"
 "checksum postgres 0.15.1 (registry+https://github.com/rust-lang/crates.io-index)" = "6e6dbad8297d43a1319817c45c43fd2cfd6a148767f51baedcdce732635c6526"
 "checksum postgres-derive 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)" = "04c3f01e90a1fd8bf4e113cd174e02d20d3839df5db1e7de05aea1bffec5f887"
 "checksum postgres-protocol 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)" = "2b5cf13fd1f61ca10b374a44b7feb0636fce67cd3bd42f925f9186b0e7ccec7b"
