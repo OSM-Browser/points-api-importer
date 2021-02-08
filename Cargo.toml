@@ -6,6 +6,6 @@ authors = ["duxet <duxetlg@gmail.com>"]
 [dependencies]
 clap = "2.26"
 osmpbfreader = "0.11"
-postgis = "0.5"
+postgis = "0.8"
 postgres = "0.15"
 postgres-derive = "0.3"
